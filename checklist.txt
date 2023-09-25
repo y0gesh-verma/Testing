@@ -1,0 +1,100 @@
+Web Application:
+
+	Resources:
+
+	https://pentestbook.six2dez.com/others/web-checklist#user-management
+	https://kathan19.gitbook.io/howtohunt/checklist/web-application-pentesting-checklist
+	https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+
+	Phase 1 - Unauthenticated
+
+    	1. DMARC Misconfigurations (Tool - https://mxtoolbox.com/dmarc.aspx)
+    	2. Missing Security Headers (Tool - shcheck.sh) (Before and After login separately)
+    	3. Flags on Cookies (Secure, HttpOnly) (Tool - Cookie editor)
+    	4. Version Disclosures (Vulnerable Components)
+    	5. SSL/TLS Misconfigurations (Tool - testssl)
+    	6. Burp Scan (New Live Task -> Actively Scan in Scope)
+    	7. Input Injections
+    	8. Sensitive Information Disclosures in Source Code / Cookies / Headers
+    	9. Vulnerable JavaScript Components (Tool - retirejs)
+    	10 File / Directory Bruteforce (Before and After login separately)
+    	11. Parameter fuzz (Tool - Paraminer(Burp plugin) / Arjun)
+    	11. OWASP Top 10
+    	12. Nikto / Nuclei
+
+	Phase 2 - Authentication
+		
+		1. Lack of brute force protection / rate limiting on login, register, forget password, etc.
+		2. Username enumeration
+		3. Lack of password confirmation on change email, password or 2FA (try change response)
+		4. Credentials sent over HTTP?
+		5. Weak/default credentials
+		6. Test password quality rules
+		7. Test CAPTCHA bypass
+		8. Test multi factor authentication bypass
+		9. Authentication bypass
+		10. Input Injections
+		11. OWASP Top
+		12. Burp scan
+		13. CSRF attack
+		14. CSRF validation check
+
+	Phase 3 - Session Management
+
+		https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
+
+		1. Short / easy / guessable / meaningful session cookie?
+		2. Same session cookie as before login (Session Fixation)
+		3. Decode Cookie (Base64, hex, URL, etc.) Sensitive data in the cookie
+		4. Multiple sessions allowed? / same session cookie?
+		5. Same cookie assigned every time we log in?
+		6. Session not expiring after logout (Session termination)
+		7. Burp Scan (New live task -> Actively Scan in scope)
+		8. Flags on cookie (secure, http only) (Tool - Cookie editor)
+		
+	Phase 4 - Access control / authorization
+
+		1. IDOR
+		2. Horizontal access control issues (Different account of same level) (Tool - Autorize burp plugin)
+		3. Vertical access control issues (Different level accounts) (Tool - Autorize burp plugin)
+		4. If authenticated endpoints are accessible without session cookie / token (Tool - Autorize burp plugin)
+
+	Other:
+
+		1. HTTP methods allowed (PUT, DELETE, etc.) (Not on api)
+		2. Directory Listing Enabled
+		3. Error handling (Info disclosure on errors 500, 501 etc)
+		4. CORS misconfigurations (Arbitrary origin trusted)
+		5. File uploads
+		6. DOS on regex input
+		7. Business Logic Testing
+		8. Open redirects
+		etc.
+
+	API:
+
+		1. None, NONE, NoNE, NOne algorithm in use (Change in first part of token)
+		2. Session Expiration
+		3. HTTP request method change (unintended method in use)
+		4. Signature not verified server side (Change in second part of token and if works, report)
+		5. Input Injections
+		6. IDOR
+		7. Sensitive data in jwt token
+		8. Mass assignment (Able to update unintended parameter value)
+		9. Phase 4 - Access control test cases
+		10. Sensitve inforamtion disclosure
+		etc.
+
+External / Internal	 Network:
+
+	1. Open ports scan with naabu (With host discovery disabled)
+	2. Nuclei
+	3. Nessus
+	4. Version disclosures
+	5. Vulnerable services
+	6. Services enumeration
+	7. SSL/TLS misc on web ports / missing security headers
+	8. Shodan / censys.io (Info disclosure / open ports / vulnerable component)
+	9. DNS Enumeration (Check for subdomains and PTR records)
+	10. DMARC Records
+	11. Full web app check list follow here if web application found
